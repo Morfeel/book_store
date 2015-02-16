@@ -13,3 +13,30 @@
  *= require_tree .
  *= require_self
  */
+
+#logo{
+	height:50px;
+}
+.navbar-brand{
+	padding: 0 15px;
+}
+#search{
+	display: none;
+	-webkit-transition: display 5s;
+    transition: display 5s;
+}
+#search-button{
+	-webkit-transition: display 5s;
+    transition: display 5s;
+}
+#loginModal{
+	opacity: .95;
+	background: url("background_2.jpg") no-repeat center;
+}
+#registerModal{
+	opacity: .95;
+	background: url("background_3.jpg") no-repeat center;
+}
+.errorStatus{
+	display: none;
+}

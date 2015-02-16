@@ -14,19 +14,19 @@
 ActiveRecord::Schema.define(version: 20150210000349) do
 
   create_table "authors", force: :cascade do |t|
-    t.string   "first_name",  limit: 25,  null: false
-    t.string   "last_name",   limit: 25,  null: false
-    t.string   "nationality", limit: 255
-    t.integer  "tel",         limit: 4
-    t.integer  "mobile",      limit: 4
-    t.string   "email",       limit: 255
-    t.string   "city",        limit: 255
-    t.string   "suburb",      limit: 255
-    t.string   "street",      limit: 255
-    t.integer  "postal_code", limit: 4
-    t.string   "contactor",   limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "first_name",     limit: 10,  null: false
+    t.string   "last_name",      limit: 20,  null: false
+    t.string   "preferred_name", limit: 20
+    t.string   "nationality",    limit: 15,  null: false
+    t.string   "tel",            limit: 24
+    t.string   "mobile",         limit: 24
+    t.string   "email",          limit: 255
+    t.string   "city",           limit: 15
+    t.string   "suburb",         limit: 15
+    t.string   "street",         limit: 60
+    t.integer  "postal_code",    limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "authors_books", id: false, force: :cascade do |t|
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 20150210000349) do
   create_table "books", force: :cascade do |t|
     t.integer  "supplier_id",  limit: 4
     t.integer  "publisher_id", limit: 4
-    t.string   "name",         limit: 255
-    t.string   "isbn",         limit: 255
+    t.string   "name",         limit: 40
+    t.string   "isbn",         limit: 10
     t.string   "image",        limit: 255
     t.float    "price",        limit: 24
     t.integer  "stock",        limit: 4
@@ -69,11 +69,16 @@ ActiveRecord::Schema.define(version: 20150210000349) do
   end
 
   create_table "groups", force: :cascade do |t|
-    t.string   "name",        limit: 255
+    t.string   "name",        limit: 255,                   null: false
     t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.boolean  "can_login",   limit: 1,     default: false, null: false
+    t.boolean  "can_order",   limit: 1,     default: false, null: false
+    t.boolean  "can_admin",   limit: 1,     default: false, null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
+
+  add_index "groups", ["name"], name: "index_groups_on_name", using: :btree
 
   create_table "groups_users", id: false, force: :cascade do |t|
     t.integer "group_id", limit: 4
@@ -93,7 +98,7 @@ ActiveRecord::Schema.define(version: 20150210000349) do
   add_index "order_items", ["order_id", "book_id"], name: "index_order_items_on_order_id_and_book_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
+    t.integer  "user_id",    limit: 4, null: false
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
   end
@@ -101,47 +106,53 @@ ActiveRecord::Schema.define(version: 20150210000349) do
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "publishers", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.integer  "tel",         limit: 4
-    t.string   "email",       limit: 255
-    t.string   "city",        limit: 255
-    t.string   "suburb",      limit: 255
-    t.string   "street",      limit: 255
-    t.integer  "postal_code", limit: 4
-    t.string   "contactor",   limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "name",          limit: 40,  null: false
+    t.string   "contact_name",  limit: 30
+    t.string   "contact_title", limit: 30
+    t.string   "tel",           limit: 24
+    t.string   "email",         limit: 255
+    t.string   "city",          limit: 15
+    t.string   "suburb",        limit: 15
+    t.string   "street",        limit: 60
+    t.integer  "postal_code",   limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "suppliers", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.integer  "tel",         limit: 4
-    t.string   "email",       limit: 255
-    t.string   "city",        limit: 255
-    t.string   "suburb",      limit: 255
-    t.string   "street",      limit: 255
-    t.integer  "postal_code", limit: 4
-    t.string   "contactor",   limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "name",          limit: 40,  null: false
+    t.string   "contact_name",  limit: 30
+    t.string   "contact_title", limit: 30
+    t.string   "tel",           limit: 24,  null: false
+    t.string   "email",         limit: 255, null: false
+    t.string   "city",          limit: 15
+    t.string   "suburb",        limit: 15
+    t.string   "street",        limit: 60
+    t.integer  "postal_code",   limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name",     limit: 25,  null: false
-    t.string   "last_name",      limit: 25,  null: false
-    t.string   "preferred_name", limit: 25
-    t.string   "email",          limit: 255, null: false
-    t.string   "password",       limit: 40,  null: false
-    t.string   "city",           limit: 255
-    t.string   "suburb",         limit: 255
-    t.string   "street",         limit: 255
-    t.integer  "postal_code",    limit: 4
-    t.integer  "tel",            limit: 4
-    t.integer  "mobile",         limit: 4
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "first_name",      limit: 10,  null: false
+    t.string   "last_name",       limit: 20,  null: false
+    t.string   "preferred_name",  limit: 20
+    t.string   "email",           limit: 255, null: false
+    t.string   "password",        limit: 40
+    t.string   "password_digest", limit: 255
+    t.string   "hashed_password", limit: 40
+    t.string   "city",            limit: 15
+    t.string   "suburb",          limit: 15
+    t.string   "street",          limit: 60
+    t.integer  "postal_code",     limit: 4
+    t.string   "tel",             limit: 24
+    t.string   "mobile",          limit: 24
+    t.integer  "group_id",        limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
 
 end

@@ -1,0 +1,14 @@
+<%= form_for(:user, :url =>{:action => 'update', :id => @user.id }) do |f| %>
+
+<div class="form-group">
+	<%= f.label :email, 'Email Address' %>
+	<%= f.email_field :email, :class => 'form-control', :placeholder => 'Enter email' %>
+	<%= f.label :first_name %>
+	<%= f.text_field :first_name, :class => 'form-control', :placeholder => 'First Name' %>
+	<%= f.label :last_name %>
+	<%= f.text_field :last_name, :class => 'form-control', :placeholder => 'Last Name' %>
+	<%= f.label :password %>
+	<%= f.submit 'Submit', :class => 'btn btn-default' %>
+</div>
+
+<% end %>

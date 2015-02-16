@@ -1,6 +1,19 @@
 Rails.application.routes.draw do
+
   
   root 'main#index'
+
+  
+
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      post    '/login',    to: 'access#attempt_login'
+      get     '/logout',   to: 'access#logout'
+      get     '/check',    to: 'access#check_email'
+    end
+  end
+  
+  match ':controller(/:action(/:id))', :via => [:get, :post]
   
   #get 'main/index'
 
@@ -58,5 +71,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  match ':controller(/:action(/:id))', :via => :get
+  
 end

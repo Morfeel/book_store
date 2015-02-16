@@ -3,8 +3,8 @@ class CreateBooks < ActiveRecord::Migration
     create_table :books do |t|
       t.references :supplier
       t.references :publisher
-    	t.string 'name'
-    	t.string 'isbn'
+    	t.string 'name', limit: 40
+    	t.string 'isbn', limit: 10
     	t.string 'image'
     	t.float 'price'
     	t.integer 'stock'

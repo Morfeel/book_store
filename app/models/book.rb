@@ -4,4 +4,5 @@ class Book < ActiveRecord::Base
 	has_many :order_items
 	has_and_belongs_to_many :categories
 	has_and_belongs_to_many :authors
+	has_many :orders, :through => 'order_item'
 end

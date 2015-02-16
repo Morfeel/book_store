@@ -1,0 +1,25 @@
+<table class="table">
+	<% if @user %>
+	
+	 <tr>
+		<th>#</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Email</th>
+		<th></th>
+	</tr>
+
+	 <tr>
+	 	<td><%= @user.id %></td>
+	 	<td><%= @user.first_name %></td>
+	 	<td><%= @user.last_name %></td>
+	 	<td><%= @user.email %></td>
+	 	<td><%= link_to('<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>'.html_safe, '#', :class =>'action delete') %></td>
+	 </tr>
+
+	<% else %>
+	<%= 'no records' %>
+	
+	<% end %>
+
+</table>

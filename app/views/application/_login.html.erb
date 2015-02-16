@@ -1,0 +1,45 @@
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Login</h4>
+      </div>
+
+
+      <!-- form start -->
+      <%= form_tag({controller: 'access', action: 'attempt_login'}, id: 'login-form', remote: true) do %>
+      <div class="modal-body">
+        
+        <div class="form-group">
+          <%= label_tag('email', 'Email address', class: 'control-label') %>
+          <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'Enter email', 'data-toggle': 'popover', 'data-placement': 'bottom', title: 'Email', 'data-content': 'Vivamus
+          sagittis lacus vel augue laoreet rutrum faucibus.', required: 'required' %>
+          <span class="errorStatus control-label">Email is not correct</span>
+        </div>
+
+        <div class="form-group">
+          <%= label_tag('password', 'Password', class: 'control-label') %>
+          <%= password_field_tag 'password', nil, class: 'form-control not-blank', placeholder: 'Password', required: 'required','aria-describedby':'passwordErrorStatus'%>
+          <span class="errorStatus control-label">Password is not correct</span>
+        </div>
+        
+        <div class="checkbox">
+          <label>
+            <%= check_box_tag 'remember', nil, false, 'data-toggle': 'popover', 'data-placement': 'right', title: 'Remember me', 'data-content': 'Vivamus
+            sagittis lacus vel augue laoreet rutrum faucibus.' %> Remember me
+          </label>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="loginButton" type="submit" class="btn btn-primary">Login</button>
+      </div>
+      <% end %>
+      <!-- form end -->
+
+
+    </div>
+  </div>
+</div>
