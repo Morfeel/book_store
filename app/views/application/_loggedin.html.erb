@@ -1,0 +1,33 @@
+<li id="login_node"><%= link_to("Hi #{session[:name].capitalize if session[:name].present?}", {controller: 'users', action: 'show', id: session[:user_id] }) %></li>
+<li id="logout_node"><%= link_to 'Logout', {controller: 'access', action: 'logout'}, remote: true %></li>
+
+<% if session[:can_admin] %>
+<li class="dropdown">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
+	<ul class="dropdown-menu" role="menu">
+		<li><%= link_to 'User', users_path %></li>
+		<li><a href="#">Book</a></li>
+		<li><a href="#">Supplier</a></li>
+		<li><a href="#">Group</a></li>
+		<li><a href="#">Order link</a></li>
+		<li><a href="#">Category</a></li>
+		<li><a href="#">Publisher</a></li>
+		<li><a href="#">Author</a></li>
+	</ul>
+</li>
+<%end%>
+
+<li><a><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+<li>
+	<a id="search-button"><span class="glyphicon glyphicon-search"></span></a>
+</li>
+<li id="search">
+	<form class="navbar-form" role="search">
+		<div class="input-group form-group">
+			<input type="text" class="form-control" placeholder="Search">
+			<span class="input-group-btn">
+				<a id="close-search" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></a>
+			</span>
+		</div>
+	</form>
+</li>

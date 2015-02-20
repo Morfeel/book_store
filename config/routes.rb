@@ -7,15 +7,19 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
-      post    '/login',    to: 'access#attempt_login'
-      get     '/logout',   to: 'access#logout'
+      #post    '/login',    to: 'access#attempt_login'
+      #get     '/logout',   to: 'access#logout'
       get     '/check',    to: 'access#check_email'
+      #post     '/register',    to: 'access#register'
+      #post     '/update',    to: 'access#update'
+      #resources :users
     end
   end
+
+  post 'access/attempt_login' => 'access#attempt_login'
+  get 'logout' => 'access#logout'
   
-  match ':controller(/:action(/:id))', :via => [:get, :post]
   
-  #get 'main/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -30,7 +34,8 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  resources :users
+  #match ':controller(/:action(/:id))', :via => [:get, :post]
 
   # Example resource route with options:
   #   resources :products do

@@ -6,10 +6,10 @@
 	<!-- Bootsrap -->
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 	<%= csrf_meta_tags %>
+	
 </head>
 <body>
-
-	<%= javascript_tag "var authenticity_token = '#{form_authenticity_token}';" %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
 	<%= render('nav') %>
 	<%= render('login') %>
@@ -18,11 +18,10 @@
 
 	<%= yield %>
 
-	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-
-
 	<p id="responce"></p>
+	
 	<!-- Bootsrap -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

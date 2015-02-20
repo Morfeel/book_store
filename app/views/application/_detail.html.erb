@@ -1,0 +1,75 @@
+<div class="modal fade bs-example-modal-lg" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Register</h4>
+      </div>
+      <!-- form start -->
+      <%= form_for(@user, method: :patch, remote: true, html: {id: 'detail-form'}) do |f| %>
+      <div class="modal-body">
+        <div class="modal-body col-lg-6 col-md-6 col-sm-6 form-group">
+
+          <div class="form-group">
+            <%= f.label(:first_name, 'First name', class: 'control-label') %>
+            <%= f.text_field :first_name, class: 'form-control', placeholder: 'First name', 'data-toggle': 'popover', 'data-placement': 'bottom', title: 'Email', 'data-content': 'Vivamus
+            sagittis lacus vel augue laoreet rutrum faucibus.' %>
+          </div>
+          <div class="form-group">
+            <%= f.label(:last_name, 'Last name', class: 'control-label') %>
+            <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last name', 'data-toggle': 'popover', 'data-placement': 'bottom', title: 'Email', 'data-content': 'Vivamus
+            sagittis lacus vel augue laoreet rutrum faucibus.' %>
+          </div>
+          <div class="form-group">
+            <%= f.label(:preferred_name, 'Preferred name', class: 'control-label') %>
+            <%= f.text_field :preferred_name, class: 'form-control', placeholder: 'Preferred name', 'data-toggle': 'popover', 'data-placement': 'bottom', title: 'Email', 'data-content': 'Vivamus
+            sagittis lacus vel augue laoreet rutrum faucibus.' %>
+          </div>
+          <div class="form-group">
+            <%= f.label(:tel, 'Tel', class: 'control-label') %>
+            <%= f.text_field :tel, class: 'form-control', placeholder: 'Tel', 'data-toggle': 'popover', 'data-placement': 'bottom', title: 'Email', 'data-content': 'Vivamus
+            sagittis lacus vel augue laoreet rutrum faucibus.' %>
+          </div>
+          <div class="form-group">
+            <%= f.label(:mobile, 'Mobile', class: 'control-label') %>
+            <%= f.text_field :mobile, class: 'form-control', placeholder: 'Mobile', 'data-toggle': 'popover', 'data-placement': 'bottom', title: 'Email', 'data-content': 'Vivamus
+            sagittis lacus vel augue laoreet rutrum faucibus.' %>
+          </div>
+        </div>
+        <div class="modal-body col-lg-6 col-md-6 col-sm-6 form-group">
+          <div class="form-group">
+            <%= f.label(:street, 'Street', class: 'control-label') %>
+            <%= f.text_field :street, class: 'form-control', placeholder: 'Street', 'data-toggle': 'popover', 'data-placement': 'bottom', title: 'Email', 'data-content': 'Vivamus
+            sagittis lacus vel augue laoreet rutrum faucibus.' %>
+          </div>
+          <div class="form-group">
+            <%= f.label(:suburb, 'Suburb', class: 'control-label') %>
+            <%= f.text_field :suburb, class: 'form-control', placeholder: 'Suburb', 'data-toggle': 'popover', 'data-placement': 'bottom', title: 'Email', 'data-content': 'Vivamus
+            sagittis lacus vel augue laoreet rutrum faucibus.' %>
+          </div>
+          <div class="form-group">
+            <%= f.label(:city, 'City', class: 'control-label') %>
+            <%= f.text_field :city, class: 'form-control', placeholder: 'City', 'data-toggle': 'popover', 'data-placement': 'bottom', title: 'Email', 'data-content': 'Vivamus
+            sagittis lacus vel augue laoreet rutrum faucibus.' %>
+          </div>
+          <div class="form-group">
+            <%= f.label(:postal_code, 'Postal code', class: 'control-label') %>
+            <%= f.text_field :postal_code, class: 'form-control', placeholder: 'Postal code', 'data-toggle': 'popover', 'data-placement': 'bottom', title: 'Email', 'data-content': 'Vivamus
+            sagittis lacus vel augue laoreet rutrum faucibus.' %>
+          </div>
+
+
+        </div>
+        <label></label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= submit_tag('Update', type: 'submit', class: 'btn btn-primary') %>
+      </div>
+      <% end %>
+
+
+    </div>
+    <!-- form end -->
+  </div>
+</div>

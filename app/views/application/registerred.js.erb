@@ -1,0 +1,6 @@
+<%= render template: 'application/loggedin.js.erb' %>
+$('#register-form')[0].reset();
+$('#registerModal').modal('hide');
+
+$('body').append("<%= escape_javascript( render 'detail' ) %>");
+$('#detailModal').modal('show');

@@ -1,14 +1,65 @@
-<%= form_for(:user, :url =>{:action => 'update', :id => @user.id }) do |f| %>
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
 
-<div class="form-group">
-	<%= f.label :email, 'Email Address' %>
-	<%= f.email_field :email, :class => 'form-control', :placeholder => 'Enter email' %>
-	<%= f.label :first_name %>
-	<%= f.text_field :first_name, :class => 'form-control', :placeholder => 'First Name' %>
-	<%= f.label :last_name %>
-	<%= f.text_field :last_name, :class => 'form-control', :placeholder => 'Last Name' %>
-	<%= f.label :password %>
-	<%= f.submit 'Submit', :class => 'btn btn-default' %>
+			<h4 class="modal-title" id="myModalLabel">User detail</h4>
+		</div>
+		<%= form_for @user, method: 'patch' do |f| %>
+		
+		<div class="modal-body col-lg-6 col-md-6">
+
+
+			
+		</div>
+		<div class="modal-body col-lg-6 col-md-6">
+			<div class="form-group col-lg-6 col-md-6">
+				
+				<%= f.label :first_name %>
+				<%= f.text_field :first_name, :class => 'form-control', :placeholder => 'First Name' %>
+			</div>
+			<div class="form-group col-lg-6 col-md-6">
+				<%= f.label :last_name %>
+				<%= f.text_field :last_name, :class => 'form-control', :placeholder => 'Last Name' %>
+
+			</div>
+			<div class="form-group col-lg-6 col-md-6">
+				<%= f.label :preferred_name, 'Preferred name' %>
+				<%= f.text_field :preferred_name, :class => 'form-control', :placeholder => 'Preferred name' %>
+
+			</div>
+
+			<div class="form-group col-lg-12 col-md-12">
+				<%= f.label :street %>
+				<%= f.text_field :street, :class => 'form-control', :placeholder => 'Street' %>
+			</div>
+			<div class="form-group col-lg-12 col-md-12">
+				<%= f.label :suburb %>
+				<%= f.text_field :suburb, :class => 'form-control', :placeholder => 'Suburb' %>
+				</div>
+			<div class="form-group col-lg-6 col-md-6">
+				<%= f.label :city, 'City' %>
+				<%= f.text_field :city, :class => 'form-control', :placeholder => 'City' %>
+				</div>
+			<div class="form-group col-lg-6 col-md-6">
+				<%= f.label :postal_code, 'Postal code' %>
+				<%= f.text_field :postal_code, :class => 'form-control', :placeholder => 'Postal code' %>
+				</div>
+			<div class="form-group col-lg-12 col-md-12">
+				<%= f.label :tel, 'Tel' %>
+				<%= f.text_field :tel, :class => 'form-control', :placeholder => 'Tel' %>
+			</div>
+			<div class="form-group col-lg-12 col-md-12">
+				<%= f.label :mobile, 'Mobile' %>
+				<%= f.text_field :mobile, :class => 'form-control', :placeholder => 'Mobile' %>
+			</div>
+
+		</div>
+		
+		<div class="modal-footer">
+			<%= link_to 'delete', @user, method: :delete, type: 'button', class: 'btn btn-danger' %>
+          <%= f.submit('Save', type: 'submit', class: 'btn btn-primary') %>
+
+		</div>
+		<% end %>
+	</div>
 </div>
-
-<% end %>

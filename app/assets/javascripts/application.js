@@ -14,59 +14,129 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-var EMAIL_PATT = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/i;
+$(document).ready(function(){
+  var EMAIL_PATT = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/i;
 
-$('#search-button').click(function(){
-	$(this).hide();
-	$('#search').show();
-});
+  $('#search-button').click(function(){
+    $(this).hide();
+    $('#search').show();
+  });
 
-$('#close-search').click(function(){
-	$('#search').hide();
-	$('#search-button').show();
-});
+  $('#close-search').click(function(){
+    $('#search').hide();
+    $('#search-button').show();
+  });
 
 
-$('[data-toggle="popover"]').focusin(function(){
-	$(this).popover('show');
-});
+  $('[data-toggle="popover"]').focusin(function(){
+    $(this).popover('show');
+  });
 
-$('[data-toggle="popover"]').focusout(function(){
-	$(this).popover('hide');
-});
+  $('[data-toggle="popover"]').focusout(function(){
+    $(this).popover('hide');
+  });
 
-$('#email').focusout(function(){
-  formControl = this;
-  var value = this.value;
+  $('#email').focusout(function(){
+    formControl = this;
+    var value = this.value;
 
-  if(isBlank(value)){
-    formControl.parentNode.classList.add('has-error');
-    $(formControl).siblings('.errorStatus').html('You cannot leave this blank').fadeIn("slow");
-  }else{
-    if (EMAIL_PATT.test(value)){
-      
-      $.ajax({
-        type: "GET",
-        url: "api/v1/check",
-        data:{ 
-          email: value,
-          // authenticity_token: authenticity_token
-        }})
-      .done(function (msg){
-
-        formControl.parentNode.classList.remove('has-error');
-        $(formControl).siblings('.errorStatus').fadeOut("slow");
-      })
-      .fail(function(msg){
-        formControl.parentNode.classList.add('has-error');
-        $(formControl).siblings('.errorStatus').html('This email has not been registerred').fadeIn("slow");
-      });
-    }else{
+    if(isBlank(value)){
       formControl.parentNode.classList.add('has-error');
-      $(formControl).siblings('.errorStatus').html('Email format is not correct').fadeIn("slow");
+      $(formControl).siblings('.errorStatus').html('You cannot leave this blank').fadeIn("slow");
+    }else{
+      if (EMAIL_PATT.test(value)){
+
+        $.ajax({
+          type: "GET",
+          url: "api/v1/check",
+          data:{ 
+            email: value,
+  // authenticity_token: authenticity_token
+  }})
+        .done(function (msg){
+
+          formControl.parentNode.classList.remove('has-error');
+          $(formControl).siblings('.errorStatus').fadeOut("slow");
+        })
+        .fail(function(msg){
+          formControl.parentNode.classList.add('has-error');
+          $(formControl).siblings('.errorStatus').html('This email has not been registerred').fadeIn("slow");
+        });
+      }else{
+        formControl.parentNode.classList.add('has-error');
+        $(formControl).siblings('.errorStatus').html('Email format is not correct').fadeIn("slow");
+      }
     }
-  }
-  
+
+  });
+
+  $('#user_email').focusout(function(){
+    formControl = this;
+    var value = this.value;
+
+    if(isBlank(value)){
+      formControl.parentNode.classList.add('has-error');
+      $(formControl).siblings('.errorStatus').html('You cannot leave this blank').fadeIn("slow");
+    }else{
+      if (EMAIL_PATT.test(value)){
+
+        $.ajax({
+          type: "GET",
+          url: "api/v1/check",
+          data:{ 
+            email: value,
+  }})
+        .done(function (msg){
+
+          formControl.parentNode.classList.add('has-error');
+          $(formControl).siblings('.errorStatus').html('This email has been registerred').fadeIn("slow");
+        })
+        .fail(function(msg){
+
+          formControl.parentNode.classList.remove('has-error');
+          $(formControl).siblings('.errorStatus').fadeOut("slow");
+
+        });
+      }else{
+        formControl.parentNode.classList.add('has-error');
+        $(formControl).siblings('.errorStatus').html('Email format is not correct').fadeIn("slow");
+      }
+    }
+
+  });
+
+  $('#user_password_confirmation, #user_password').focusout(function(){
+    var password = $('#user_password');
+    var password_confirmation = $('#user_password_confirmation');
+
+    if(isBlank($(this).val())){
+      $(this).parent().addClass('has-error');
+      $(this).siblings('.errorStatus').html('You cannot leave this blank').fadeIn("slow");
+    }else{
+      $(this).parent().removeClass('has-error');
+      $(this).siblings('.errorStatus').fadeOut("slow");
+    }
+
+    if(!isBlank(password.val()) && !isBlank(password_confirmation.val())){
+      if(password.val() === password_confirmation.val()){
+        password_confirmation.parent().removeClass('has-error');
+        password_confirmation.siblings('.errorStatus').fadeOut("slow");
+      }else{
+        password_confirmation.parent().addClass('has-error');
+        password_confirmation.siblings('.errorStatus').html('Password and password confirm do not match').fadeIn("slow");
+      }
+    }
+
+  });
+
+  $('#user_accept').focusout(function(){
+    if(this.checked){
+      $(this).parent().parent().removeClass('has-error');
+      $(this).parent().siblings('.errorStatus').fadeOut("slow");
+    }else{
+      $(this).parent().parent().addClass('has-error');
+      $(this).parent().siblings('.errorStatus').html('You have to agree to our terms to user our service').fadeIn("slow");
+    }
 });
 
 $(".not-blank").focusout(function(){
@@ -79,44 +149,13 @@ $(".not-blank").focusout(function(){
     this.parentNode.classList.remove('has-error');
     $(this).siblings('.errorStatus').fadeOut("slow");
   }
-});
-
-
-
-$("#login-form").submit(function(event) {
-	// event.preventDefault();
-  var form = $(this)[0];
-
-  var email = form["email"].value;
-  var password = form["password"].value;
-
-  $.ajax({
-  	type: "POST",
-  	url: "api/v1/login",
-  	data:{ 
-      email: email,
-  		password: password,
-  		// authenticity_token: authenticity_token
-  	}})
-  .done(function (msg){
-
-  	console.log(msg);
-    alert(msg.first_name);
-  })
-  .fail(function(msg){
-    obj = msg.responseJSON;
-    if (typeof obj.password != 'undefined'){
-      form["password"].parentNode.classList.add('has-error');
-      $(form["password"]).siblings('.errorStatus').html(obj.password).fadeIn("slow");
-    }
-    if (typeof obj.email != 'undefined'){
-      form["email"].parentNode.classList.add('has-error');
-    }
-  });
-
-  
-});
+});});
 
 function isBlank(str) {
-    return (!str || /^\s*$/.test(str));
+  return (!str || /^\s*$/.test(str));
 }
+
+function isUndefined(obj){
+  return obj === undefined;
+}
+

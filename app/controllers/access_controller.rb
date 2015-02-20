@@ -1,4 +1,4 @@
-class Api::V1::AccessController < ApplicationController
+class AccessController < ApplicationController
 
   before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout]
 
@@ -15,12 +15,24 @@ class Api::V1::AccessController < ApplicationController
             session[:user_id] = authorized_user.id
             session[:name] = authorized_user.preferred_name.blank? ? (authorized_user.first_name.blank? ? 'There' : authorized_user.first_name) : authorized_user.preferred_name
             session[:can_admin] = authorized_user.can_admin?
-            render json: {id: session[:user_id], name: session[:name], can_admin: session[:can_admin]}
+            
+            respond_to do |format|
+              format.json { render json: {id: session[:user_id], name: session[:name], can_admin: session[:can_admin]} }
+              format.js { render 'loggedin' }
+            end
           else
-            render json: {password: 'Your email and password are not match'}, status: :unprocessable_entity
+            @errors = {password: 'Your email and password are not match'}
+            respond_to do |format|
+              format.json { render @errors, status: :unprocessable_entity}
+              format.js { render 'login_error', status: :unprocessable_entity }
+            end
           end
         else
-          render json: {email: 'The email you just typed in has not been registed'}, status: :unprocessable_entity
+          @errors = {email: 'The email you just typed in has not been registed'}
+          respond_to do |format|
+            format.json { render @errors, status: :unprocessable_entity}
+            format.js { render 'login_error', status: :unprocessable_entity }
+          end
         end
       else
         render nothing: true, status: :unprocessable_entity
@@ -34,7 +46,10 @@ class Api::V1::AccessController < ApplicationController
     session[:user_id] = nil
     session[:name] = nil
     session[:can_admin] = false
-    render nothing:true, status: :ok
+    respond_to do |format|
+      format.html
+      format.js { render 'loggedout' }
+    end
   end
 
   def check_email
@@ -82,12 +97,12 @@ class Api::V1::AccessController < ApplicationController
 
   private
 
-    def confirm_logged_in
-      
-    end
+  def confirm_logged_in
 
-    def user_params
-      params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :preferred_name, :street, :suburb, :city, :tel, :mobile, :postal_code, :accept)
-    end
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :preferred_name, :street, :suburb, :city, :tel, :mobile, :postal_code, :accept)
+  end
 
 end

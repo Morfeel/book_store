@@ -1,25 +1,90 @@
-<table class="table">
-	<% if @user %>
-	
-	 <tr>
-		<th>#</th>
-		<th>First Name</th>
-		<th>Last Name</th>
-		<th>Email</th>
-		<th></th>
-	</tr>
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+			<!-- <a type="button" href="" class="close"><span aria-hidden="true">&times;</span></a>
+			<a type="button" href="" class="close"><span aria-hidden="true">&times;</span></a> -->
 
-	 <tr>
-	 	<td><%= @user.id %></td>
-	 	<td><%= @user.first_name %></td>
-	 	<td><%= @user.last_name %></td>
-	 	<td><%= @user.email %></td>
-	 	<td><%= link_to('<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>'.html_safe, '#', :class =>'action delete') %></td>
-	 </tr>
+			<%= link_to '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>'.html_safe, edit_user_path(@user), type: 'button', class: 'close' %>
 
-	<% else %>
-	<%= 'no records' %>
-	
-	<% end %>
+			<h4 class="modal-title" id="myModalLabel">User detail</h4>
+		</div>
+		<div class="modal-body col-lg-6 col-md-6">
+			<div class="media">
+				<div class="media-left media-middle">
+					<img class="media-object img-responsive" src="..." alt="Smiley face" height="180" width="180">
+				</div>
 
-</table>
+
+				<div class="media-body">
+					<h4><%= @user.name %>  <a href="mailto:<%= @user.email %>"><var><small><%= @user.email %></small></var></a></h4>
+					<address>
+						<strong>Address:</strong></br>
+						<%= @user.street %><br>
+						<%= @user.suburb %><br>
+						<%= @user.city %>, <%= @user.postal_code %><br>
+						<abbr title="Tel">Tel:</abbr> <%= @user.tel %></br>
+						<abbr title="Mobil">Mobile:</abbr> <%= @user.mobile %></br>
+					</address>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="modal-body col-lg-6 col-md-6">
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								Collapsible Group Item #1
+							</a>
+						</h4>
+					</div>
+					<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingTwo">
+						<h4 class="panel-title">
+							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+								Collapsible Group Item #2
+							</a>
+						</h4>
+					</div>
+					<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+						<div class="panel-body">
+							Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingThree">
+						<h4 class="panel-title">
+							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								Collapsible Group Item #3
+							</a>
+						</h4>
+					</div>
+					<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+						<div class="panel-body">
+							Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<label></label>
+
+		<div class="modal-footer">
+
+		</div>
+
+
+	</div>
+
+
+</div>

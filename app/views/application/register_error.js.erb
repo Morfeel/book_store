@@ -1,0 +1,19 @@
+<% if @user.errors %>
+<% messages = @user.errors.messages%>
+	<% if messages[:password] %>
+		$('#register-form #user_password').parent().addClass('has-error');
+		$('#register-form #user_password').siblings('.errorStatus').html('<%= escape_javascript(messages[:password][1]) %>').fadeIn('slow');
+	<% end %>
+	<% if messages[:email] %>
+		$('#register-form #user_email').parent().addClass('has-error');
+		$('#register-form #user_email').siblings('.errorStatus').html('<%= escape_javascript(messages[:email][0]) %>').fadeIn('slow');
+	<% end %>
+	<% if messages[:password_confirmation] %>
+		$('#register-form #user_password_confirmation').parent().addClass('has-error');
+		$('#register-form #user_password_confirmation').siblings('.errorStatus').html('<%= escape_javascript(messages[:password_confirmation][0]) %>').fadeIn('slow');
+	<% end %>
+	<% if messages[:accept] %>
+		$('#register-form #user_accept').parent().parent().addClass('has-error');
+		$('#register-form #user_accept').parent().siblings('.errorStatus').html('<%= escape_javascript(messages[:accept][0]) %>').fadeIn('slow');
+	<% end %>
+<% end %>

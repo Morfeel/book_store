@@ -1,0 +1,4 @@
+$('#navbar-right').html('');
+$('#navbar-right').html(" <%= escape_javascript(render'loggedin') %>");
+$('#loginModal').modal('hide');
+$('#login-form')[0].reset();

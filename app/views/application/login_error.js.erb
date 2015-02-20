@@ -1,0 +1,10 @@
+<% if @errors %>
+	<% if @errors[:password] %>
+		$('#login-form #password').parent().addClass('has-error');
+		$('#login-form #password').siblings('.errorStatus').html('<%= escape_javascript(@errors[:password]) %>').fadeIn('slow');
+	<% end %>
+	<% if @errors[:email] %>
+		$('#login-form')[0].form["email"].parentNode.classList.add('has-error');
+	<% end %>
+<% end %>
+	

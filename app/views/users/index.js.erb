@@ -1,0 +1,7 @@
+$(document).ready(function(){
+	$('#userList').html();
+	var template = $("#userTemplate").html();
+	$("#userList").html(template);
+	jQuery('#userList').html(" <%= escape_javascript(render'table') %>");
+	$('.pagination a').attr('data-remote', 'true');
+});
