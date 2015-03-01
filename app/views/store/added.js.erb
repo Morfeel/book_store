@@ -1,0 +1,6 @@
+$("#cart-icon").attr('data-content',"<%= escape_javascript( render 'popover_cart') %>");
+$("#cart-icon").popover('show');
+
+setTimeout(function() {
+      $("#cart-icon").popover('hide');
+}, 5000);

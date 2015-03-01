@@ -22,5 +22,9 @@ module BookStore
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    config.assets.paths << "#{Rails.root}/app/assets/images/uploads/avatars/"
+    config.assets.paths << "#{Rails.root}/app/assets/images/uploads/books/"
+    config.assets.paths << "#{Rails.root}/app/assets/images/uploads/categories/"
+    config.assets.paths << "#{Rails.root}/app/assets/images/uploads/authors/"
   end
 end

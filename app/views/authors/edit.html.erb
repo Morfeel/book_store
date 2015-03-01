@@ -1,0 +1,80 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+
+			<h4 class="modal-title lead" id="myModalLabel">
+				<%= link_to 'Home/', root_path %>
+				<%= link_to 'Authors/', authors_path %>
+				<%= link_to @author.preferred_name, edit_author_path(@author) %>
+			</h4>
+		</div>
+		<%= form_for @author, html: {multipart: true} do |f| %>
+		
+		<div class="modal-body col-lg-6 col-md-6">
+			<div id="dropzone" class="thumbnail center-block">
+				<%= image_tag(@author.image, size: "300", alt: "Image", class: 'center-block img-responsive') %>
+				<div class="caption">
+					<h3>If you do not like your avatar, drag and drop a new photo here.</h3>
+				</div>
+			</div>
+			<%= file_field_tag 'image', id:'image', class:'hidden' %>
+
+
+		</div>
+		<div class="modal-body col-lg-6 col-md-6">
+			<div class="form-group col-lg-6 col-md-6">
+				
+				<%= f.label :first_name %>
+				<%= f.text_field :first_name, :class => 'form-control', :placeholder => 'First Name' %>
+			</div>
+			<div class="form-group col-lg-6 col-md-6">
+				<%= f.label :last_name %>
+				<%= f.text_field :last_name, :class => 'form-control', :placeholder => 'Last Name' %>
+
+			</div>
+			<div class="form-group col-lg-6 col-md-6">
+				<%= f.label :preferred_name, 'Preferred name' %>
+				<%= f.text_field :preferred_name, :class => 'form-control', :placeholder => 'Preferred name' %>
+
+			</div>
+			<div class="form-group col-lg-6 col-md-6">
+				<%= f.label :nationality, 'Nationality' %>
+				<%= f.text_field :nationality, :class => 'form-control', :placeholder => 'Nationality' %>
+
+			</div>
+
+			<div class="form-group col-lg-12 col-md-12">
+				<%= f.label :street %>
+				<%= f.text_field :street, :class => 'form-control', :placeholder => 'Street' %>
+			</div>
+			<div class="form-group col-lg-12 col-md-12">
+				<%= f.label :suburb %>
+				<%= f.text_field :suburb, :class => 'form-control', :placeholder => 'Suburb' %>
+			</div>
+			<div class="form-group col-lg-6 col-md-6">
+				<%= f.label :city, 'City' %>
+				<%= f.text_field :city, :class => 'form-control', :placeholder => 'City' %>
+			</div>
+			<div class="form-group col-lg-6 col-md-6">
+				<%= f.label :postal_code, 'Postal code' %>
+				<%= f.text_field :postal_code, :class => 'form-control', :placeholder => 'Postal code' %>
+			</div>
+			<div class="form-group col-lg-12 col-md-12">
+				<%= f.label :tel, 'Tel' %>
+				<%= f.text_field :tel, :class => 'form-control', :placeholder => 'Tel' %>
+			</div>
+			<div class="form-group col-lg-12 col-md-12">
+				<%= f.label :mobile, 'Mobile' %>
+				<%= f.text_field :mobile, :class => 'form-control', :placeholder => 'Mobile' %>
+			</div>
+
+		</div>
+		
+		<div class="modal-footer">
+			<%= link_to 'delete', @author, method: :delete, type: 'button', class: 'btn btn-danger' %>
+			<%= f.submit('Save', type: 'submit', class: 'btn btn-primary') %>
+
+		</div>
+		<% end %>
+	</div>
+</div>

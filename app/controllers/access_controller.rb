@@ -1,7 +1,5 @@
 class AccessController < ApplicationController
 
-  before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout]
-
   def attempt_login
 
     unless session[:user_id]
@@ -45,7 +43,8 @@ class AccessController < ApplicationController
   def logout
     session[:user_id] = nil
     session[:name] = nil
-    session[:can_admin] = false
+    session[:can_admin] = nil
+    session[:order_items] = nil
     respond_to do |format|
       format.html
       format.js { render 'loggedout' }
@@ -96,10 +95,6 @@ class AccessController < ApplicationController
   end
 
   private
-
-  def confirm_logged_in
-
-  end
 
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :preferred_name, :street, :suburb, :city, :tel, :mobile, :postal_code, :accept)

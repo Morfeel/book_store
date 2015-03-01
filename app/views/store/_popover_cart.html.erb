@@ -1,0 +1,21 @@
+<% if @order_items && @order_items.count != 0 %>
+
+<table class="table table-striped table-hover">
+	<tr>
+		<th>#</th>
+		<th>Name</th>
+		<th>Quantity</th>
+	</tr>
+
+	<% @order_items.each do |item| %>
+	<tr>
+		<td><%= item.book.id %></td>
+		<td><%= item.book.name %></td>	
+		<td><%= item.quantity %></td>
+	</tr>
+	<% end %>
+</table>
+
+<% else %>
+<p>No content</p>
+<% end %>

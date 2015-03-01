@@ -1,0 +1,5 @@
+$(document).ready(function(){
+	$('#author-list').html();
+	$('#author-list').html(" <%= escape_javascript(render'table') %>");
+	$('.pagination a').attr('data-remote', 'true');
+});

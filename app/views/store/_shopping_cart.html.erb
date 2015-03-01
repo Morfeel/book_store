@@ -1,0 +1,43 @@
+<% if @order_items && @order_items.count != 0 %>
+<% @total = 0 %>
+<div class="modal-body">
+	<table class="table table-striped table-hover">
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Quantity</th>
+			<th></th>
+			<th></th>
+			<th>Subtotal</th>
+		</tr>
+
+		<% @order_items.each do |item| %>
+		<% if item %>
+		<tr>
+			<td><%= item.book.id %></td>
+			<td><%= item.book.name %></td>	
+			<td><%= item.quantity %></td>
+			<td><%= link_to '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'.html_safe, {controller:'store', action: 'update_quantity', id: item.book.id, add: true}, remote:true %></td>
+			<td><%= link_to '<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>'.html_safe, {controller:'store', action: 'update_quantity', id: item.book.id, minus: true}, remote:true %></td>
+			<td><%= number_to_currency subtitle = item.book.price*item.quantity %></td>
+		</tr>
+		<% @total += subtitle %>
+
+		<% end %>
+		<% end %>
+	</table>
+</div>
+<div class="modal-footer">
+	<h1 class="lead pull-left">Total: <%= number_to_currency(@total) + " + " + number_to_currency(@total*0.1) + " = " + number_to_currency(@total*1.1) %></h1>
+
+	<%= link_to 'Clear shopping cart', {controller: 'store', action: 'clear_cart'}, type: 'button', class: 'btn btn-danger',remote: true %>
+
+	<%= link_to 'Place order', {controller:'store', action:'place_order'}, type: 'button', class: 'btn btn-primary' %>
+
+</div>
+
+<% else %>
+<div id="shopping-cart" class="modal-body">
+<p>No content</p>
+</div>
+<% end %>

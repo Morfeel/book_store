@@ -1,0 +1,14 @@
+<% @books.each do |book| %>
+
+	<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+		<div class="thumbnail">
+			<%= link_to (image_tag book.image ? book.image : 'no-image.jpg', alt: book.name, class: 'img-responsive'), controller: 'store', action: 'show', id: book %>
+
+			<div class="caption">
+				<h4><%= link_to book.name, controller: 'store', action: 'show', id: book %></br><small>By <var>Joe Doe</var></small></h4>
+
+				<h4><small><%= book.price ? number_to_currency(book.price) : 'No price' %></small></h4>
+			</div>
+		</div>
+	</div>
+	<% end %>

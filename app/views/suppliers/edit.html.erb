@@ -1,0 +1,54 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+
+			<h4 class="modal-title" id="myModalLabel">
+				<%= link_to 'Home/', root_path %>
+				<%= link_to 'Suppliers/', suppliers_path %>
+				<%= link_to @supplier.name, @supplier %>
+			</h4>
+		</div>
+		<%= form_for @supplier, html: { multipart: true }  do |f| %>
+
+		<div class="row">
+
+		<div class="modal-body col-lg-6 col-md-6">
+			<div class="form-group col-lg-12 col-md-12">
+				
+				<%= f.label :name %>
+				<%= f.text_field :name, :class => 'form-control', placeholder: 'Name' %>
+			</div>
+			<div class="form-group col-lg-12 col-md-12">
+				
+				<%= f.label :tel %>
+				<%= f.text_field :tel, :class => 'form-control', placeholder: 'Name' %>
+			</div>
+			<div class="form-group col-lg-12 col-md-12">
+				
+				<%= f.label :email %>
+				<%= f.text_field :email, :class => 'form-control', placeholder: 'Name' %>
+			</div>
+			
+
+		</div>
+
+		</div>
+		
+		<div class="modal-footer">
+
+			<% if @supplier.new_record? %>
+
+				<%= f.submit('Save', type: 'submit', class: 'btn btn-primary') %>
+
+			<% else %>
+
+				<%= link_to 'delete', @supplier, method: :delete, type: 'button', class: 'btn btn-danger' %>
+				<%= f.submit('Update', type: 'submit', class: 'btn btn-primary') %>
+
+			<% end %>
+			
+
+		</div>
+		<% end %>
+	</div>
+</div>

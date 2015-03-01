@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :sortable_columns
+  before_action :require_login
 
   def index
     @users = User.all.page(params[:page]).per_page(10)
@@ -43,18 +44,26 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    
+    
     if @user
+      if params[:avatar].present?
+        uploaded_file = params[:avatar]
+        avatar_filename = File.split(uploaded_file.path).last
+        upload_avatar uploaded_file, avatar_filename
+        @user.avatar = avatar_filename
+      end
       
       if @user.update_attributes(update_params)
         session[:name] = @user.preferred_name.blank? ? (@user.first_name.blank? ? 'There' : @user.first_name) : @user.preferred_name
         session[:can_admin] = @user.can_admin?
         respond_to do |format|
-          format.html { render 'show'}
+          format.html { redirect_to @user }
           format.json { render json: {id: session[:user_id], name: session[:name], can_admin: session[:can_admin]} }
           format.js { render 'updated' }
         end
       else
-        render js: 'alert("Cannot modify user")'
+        render js: 'alert("Cannot modify user")', status: :internal_server_error
       end
     else
       render js: 'alert("User not found!")'
@@ -63,6 +72,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @orders = @user.orders.page(params[:page]).per_page(5)
 
     if @user
 
@@ -81,9 +91,9 @@ class UsersController < ApplicationController
     end
     
   end
+
   def edit
     @user = User.find(params[:id])
-    
   end
 
   private
@@ -92,7 +102,7 @@ class UsersController < ApplicationController
     end
 
     def update_params
-      params.require(:user).permit(:first_name, :last_name, :preferred_name, :street, :suburb, :city, :tel, :mobile, :postal_code)
+      params.require(:user).permit(:first_name, :last_name, :preferred_name, :street, :suburb, :city, :tel, :mobile, :postal_code, :image)
     end
 
     def update_password_params
@@ -103,5 +113,11 @@ class UsersController < ApplicationController
       @sortable_columns = User.column_names
       exclusive_columns = ["preferred_name", "email", "password", "password_digest", "hashed_password", "city", "suburb", "street", "postal_code", "tel", "mobile", "group_id", "created_at", "updated_at"]
       @sortable_columns -= exclusive_columns 
+    end
+
+    def upload_avatar(uploaded_file, avatar_filename)
+      File.open(Rails.root.join('app', 'assets', 'images', 'uploads', 'avatars', avatar_filename), 'wb') do |file|
+        file.write(uploaded_file.read)
+      end
     end
 end

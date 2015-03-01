@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210000349) do
+ActiveRecord::Schema.define(version: 20150224025906) do
 
   create_table "authors", force: :cascade do |t|
     t.string   "first_name",     limit: 10,  null: false
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150210000349) do
     t.integer  "postal_code",    limit: 4
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.string   "image",          limit: 255
   end
 
   create_table "authors_books", id: false, force: :cascade do |t|
@@ -66,6 +67,7 @@ ActiveRecord::Schema.define(version: 20150210000349) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.string   "image",       limit: 255
   end
 
   create_table "groups", force: :cascade do |t|
@@ -150,6 +152,7 @@ ActiveRecord::Schema.define(version: 20150210000349) do
     t.integer  "group_id",        limit: 4
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.string   "avatar",          limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree

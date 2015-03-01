@@ -1,0 +1,99 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+
+			<%= link_to '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>'.html_safe, edit_author_path(@author), type: 'button', class: 'close' %>
+
+			<h4 class="modal-title" id="myModalLabel">User detail</h4>
+		</div>
+		<div class="modal-body col-lg-6 col-md-6">
+			<div class="media">
+				<div class="media-left media-middle">
+					<%= image_tag (@author.image ? @author.image : 'no-image.jpg'), size: "180", alt: @author.preferred_name %>
+				</div>
+
+
+				<div class="media-body">
+					<h4><%= @author.preferred_name %></h4>
+					<address>
+						<strong>Address:</strong></br>
+						<%= @author.street %><br>
+						<%= @author.suburb %><br>
+						<%= @author.city %>, <%= @author.postal_code %><br>
+						<abbr title="Tel">Tel:</abbr> <%= @author.tel %></br>
+						<abbr title="Mobil">Mobile:</abbr> <%= @author.mobile %></br>
+					</address>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="modal-body col-lg-6 col-md-6">
+			<% unless @author.books.blank? %>
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				<% @author.books.each do |book| %>
+
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="heading#{book.id}">
+						<h4 class="panel-title">
+							<%= link_to book.id, "#collapse#{book.id}", class: "collapsed", 'data-toggle': "collapse", 'data-parent': "#accordion", 'aria-expanded':"false", 'aria-controls':"collapse#{book.id}" %>
+						</h4>
+					</div>
+					<div id=<%= "collapse#{book.id}" %> class="panel-collapse collapse" role="tabpanel" aria-labelledby=<%= "heading#{book.id}" %>>
+						<div class="panel-body">
+							<div class="caption">
+								<h4><%= link_to book.name, book %> <small><var>
+									<% unless book.author_names.blank? %>
+									<%= book.author_names.join(', ') %>
+									<% else %>
+									Joe Doe
+									<% end %>
+								</var></small></h4>
+								<table class="table">
+									<tr>
+										<td><strong>Price</strong></td>
+										<td><%= number_to_currency(book.price) %></td>
+										<td><strong>Stock</strong></td>
+										<td><%= book.stock %></td>
+										<tr>
+											<td><strong>Language</strong></td>
+											<td><%= book.language %></td>
+											<td><strong>Paperback</strong></td>
+											<td><%= book.paperback %></td>
+										</tr>
+										<td><strong>ISBN</strong></td>
+										<td colspan="3"><%= book.isbn %></td>
+									</tr>
+									<tr>
+										<td><strong>Publisher</strong></td>
+										<td><%= book.publisher.name if book.publisher %></td>
+										<td><strong>Supplier</strong></td>
+										<td><%= book.supplier.name if book.supplier %></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<% end %>
+
+			</div>
+			<% else %>
+			<p>
+				This user has not orderred anything.
+			</p>
+			<% end %>
+		</div>
+
+		<div class="clearfix"></div>
+
+		<div class="modal-footer">
+
+		</div>
+
+
+	</div>
+
+
+</div>

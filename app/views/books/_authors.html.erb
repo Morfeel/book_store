@@ -1,0 +1,35 @@
+<%= label_tag :authors%>
+
+<div id="authors-edit" class="tag-list"></div>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	authorsTags = $('#authors-edit').tags({
+		tagData: <%= raw @book.author_names %>,
+		suggestions: <%= raw @book.author_name_seggestions %>,
+		excludeList: <%= raw @book.author_names %>,
+		promptText: "Add",
+		afterAddingTag: function(){
+			$.ajax({
+				type: 'GET',
+				url: "/books/update_authors/" + $('#book_id').val() + ".js",
+				data:{
+					authors: authorsTags.getTags().join(',')
+				}
+			});
+		},
+		afterDeletingTag: function(){
+			$.ajax({
+				type: 'GET',
+				url: "/books/update_authors/" + $('#book_id').val() + ".js",
+				data:{
+					authors: authorsTags.getTags().join(',')
+				}
+			});
+		}
+	});
+
+});
+
+</script>

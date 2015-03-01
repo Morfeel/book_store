@@ -1,0 +1,77 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+
+			<h4 class="modal-title lead" id="myModalLabel">
+				<%= link_to 'Home/', root_path %>
+				<%= link_to 'Categories/', categories_path %>
+				<%= link_to @category.name, edit_category_path(@category) %>
+			</h4>
+		</div>
+		<%= form_for @category, html: { multipart: true }  do |f| %>
+
+		<div class="row">
+		
+		<div class="modal-body col-lg-6 col-md-6">
+			<%= f.label :image %>
+			<div id="dropzone" class="thumbnail text-center">
+				<% unless @category.image.blank? %>
+
+					<%= image_tag(@category.image, size: "300", alt: "Avatar", class: 'center-block img-responsive') %>
+					<div class="caption">
+						<h3>If you need to upload a new photo, drag and drop a new photo here.</h3>
+
+						
+					</div>
+				<% else %>
+					<%= image_tag(@category.image, size: "300", alt: "Avatar", class: 'center-block img-responsive') %>
+					<div class="caption">
+						<% if @category.new_record? %>
+							<h3>Upload a photo for this category, drag and drop a new photo here.</h3>
+						<% else %>
+							<h3>You do not have photo for this category, drag and drop a photo here.</h3>
+						<% end %>
+					</div>
+
+				<% end %>
+			</div>
+			<%= file_field_tag 'image', id:'image', class:'hidden' %>
+
+
+		</div>
+		<div class="modal-body col-lg-6 col-md-6">
+			<div class="form-group col-lg-12 col-md-12">
+				
+				<%= f.label :name %>
+				<%= f.text_field :name, :class => 'form-control', placeholder: 'Name' %>
+			</div>
+
+			<div class="form-group col-lg-12 col-md-12">
+				<%= f.label :description %>
+				<%= f.text_area :description, :class => 'form-control', rows: '8', placeholder: 'Description' %>
+			</div>
+			
+			
+
+		</div>
+
+		</div>
+		
+		<div class="modal-footer">
+
+			<% if @category.new_record? %>
+
+				<%= f.submit('Save', type: 'submit', class: 'btn btn-primary') %>
+
+			<% else %>
+
+				<%= link_to 'delete', @category, method: :delete, type: 'button', class: 'btn btn-danger' %>
+				<%= f.submit('Update', type: 'submit', class: 'btn btn-primary') %>
+
+			<% end %>
+			
+
+		</div>
+		<% end %>
+	</div>
+</div>

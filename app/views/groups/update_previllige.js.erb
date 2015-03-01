@@ -1,0 +1,5 @@
+$(document).ready(function(){
+	$('#groups-list').html("");
+	document.getElementById('groups-list').innerHTML = " <%= escape_javascript(render'table') %>";
+	$('.pagination a').attr('data-remote', 'true');
+});

@@ -40,3 +40,30 @@
 .errorStatus{
 	display: none;
 }
+
+.dragover{
+	border: 2px dashed #ccc;
+}
+.detail-table tr{
+	border :0
+}
+.row{
+	padding: 0 15px;
+}
+td{
+	white-space: nowrap
+}
+.icon-success {
+    color: #5CB85C;
+}
+.icon-danger {
+    color: #d9534f;
+}
+.footer{
+	margin-top: 80px;
+	background-color: black;
+}
+.media-object{
+	max-height: 180;
+	max-width: 180;
+}

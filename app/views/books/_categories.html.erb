@@ -1,0 +1,37 @@
+<%= label_tag :categories%>
+
+<div id="categories-edit" class="tag-list"></div>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	tags = $('#categories-edit').tags({
+		tagData: <%= raw @categories %>,
+		suggestions:<%= raw @suggestions %>,
+		excludeList:<%= raw @categories %>,
+		promptText: "Add",
+		afterAddingTag: function(){
+			$.ajax({
+				type: 'GET',
+				url: "/books/update_categories.js",
+				data:{
+					categories: tags.getTags().join(','),
+					id:  $('#book_id').val()
+				}
+			});
+		},
+		afterDeletingTag: function(){
+			$.ajax({
+				type: 'GET',
+				url: "/books/update_categories.js",
+				data:{
+					categories: tags.getTags().join(','),
+					id:  $('#book_id').val()
+				}
+			});
+		}
+	});
+
+});
+
+</script>

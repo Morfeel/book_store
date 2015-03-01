@@ -1,0 +1,145 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+
+			<h4 class="modal-title lead" id="myModalLabel">
+				<%= link_to 'Home/', root_path %>
+				<%= link_to 'Books/', books_path %>
+				<%= link_to @book.name, @book %>
+			</h4>
+		</div>
+		<%= form_for @book, html: { multipart: true }  do |f| %>
+		<%= f.hidden_field :id %>
+
+		<div class="row">
+
+			<div class="modal-body col-lg-6 col-md-6">
+				<%= f.label :image %>
+				<div id="dropzone" class="thumbnail text-center">
+					<% unless @book.image.blank? %>
+
+					<%= image_tag(@book.image, size: "300", alt: "Avatar", class: 'center-block img-responsive') %>
+					<div class="caption">
+						<h3>If you need to upload a new photo, drag and drop a new photo here.</h3>
+
+						
+					</div>
+					<% else %>
+					<%= image_tag(@book.image, size: "300", alt: "Avatar", class: 'center-block img-responsive') %>
+					<div class="caption">
+						<% if @book.new_record? %>
+						<h3>Upload a photo for this book, drag and drop a new photo here.</h3>
+						<% else %>
+						<h3>You do not have photo for this book, drag and drop a photo here.</h3>
+						<% end %>
+					</div>
+
+					<% end %>
+				</div>
+				<%= file_field_tag 'image', id:'image', class:'hidden' %>
+
+
+			</div>
+			<div class="modal-body col-lg-6 col-md-6">
+				<div class="form-group col-lg-12 col-md-12">
+
+					<%= f.label :name %>
+					<%= f.text_field :name, :class => 'form-control', placeholder: 'Name' %>
+				</div>
+				<div id="authors" class="form-group col-lg-12 col-md-12">
+					<%= render 'authors' %>
+
+					
+				</div>
+				<div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+					<%= f.label :price %>
+					<div class="input-group">
+						<span class="input-group-addon">$</span>
+						<%= f.text_field :price, :class => 'form-control', placeholder: 'Price' %>
+					</div>
+				</div>
+				<div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+					<%= f.label :stock %>
+					<%= f.text_field :stock, :class => 'form-control', placeholder: 'Stock' %>
+				</div>
+
+				<div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+					<%= f.label :language %>
+					<%= f.text_field :language, :class => 'form-control', placeholder: 'Language' %>
+
+				</div>
+				<div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+					<%= f.label :paperback %>
+					<%= f.text_field :paperback, :class => 'form-control', placeholder: 'Paperback' %>
+				</div>
+
+				<div id="categories" class="form-group col-lg-12 col-md-12">
+					<%= render 'categories' %>
+
+					
+				</div>
+
+				<div class="form-group col-lg-12 col-md-12">
+					<%= f.label :isbn , 'ISBN' %>
+					<%= f.text_field :isbn, :class => 'form-control', placeholder: 'ISBN' %>
+				</div>
+
+				<div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+					<%= label_tag :supplier %>
+					<%= text_field_tag :supplier, (@book.supplier.name if @book.supplier), :class => 'form-control', placeholder: 'Supplier', list:  'suppliers'%>
+					<datalist id="suppliers">
+						<% Supplier.all.map{ |sup| sup.name.capitalize }.each do |sup| %>
+						<option value="<%= sup %>"></option>
+						<% end %>
+					</datalist>
+					
+				</div>
+
+				<div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+					<%= label_tag :publisher %>
+					<%= text_field_tag :publisher, (@book.publisher.name if @book.publisher), :class => 'form-control', placeholder: 'Pulisher', list: 'pulishers'%>
+					<datalist id="pulishers">
+						<% Publisher.all.map{ |pub| pub.name.capitalize }.each do |pub| %>
+						<option value="<%= pub %>"></option>
+						<% end %>
+					</datalist>
+				</div>
+
+				<div class="form-group col-lg-12 col-md-12">
+					<%= f.label :description %>
+					<%= f.text_area :description, :class => 'form-control', rows: '8', placeholder: 'Description' %>
+				</div>
+
+
+
+			</div>
+
+		</div>
+		
+		<div class="modal-footer">
+
+			<% if @book.new_record? %>
+
+			<%= f.submit('Save', type: 'submit', class: 'btn btn-primary') %>
+
+			<% else %>
+
+			<%= link_to 'delete', @book, method: :delete, type: 'button', class: 'btn btn-danger' %>
+			<%= f.submit('Update', type: 'submit', class: 'btn btn-primary') %>
+
+			<% end %>
+			
+
+		</div>
+		<% end %>
+	</div>
+</div>
+
+<datalist id="datalist1">
+	<option value="Canada">
+		<option value="China">
+			<option value="Mexico">
+				<option value="United Kingdom">
+					<option value="United States of America">
+						<option value="Uruguay">
+						</datalist>

@@ -1,0 +1,12 @@
+<% @title = 'Bookstore' + ' Books' %>
+<div class="modal-dialog modal-lg">
+	<div id="userList" class="modal-content">
+
+
+		<%= render "table" %>
+
+		<script>
+		$(function(){ $('.pagination a').attr('data-remote', 'true')});
+		</script>
+	</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

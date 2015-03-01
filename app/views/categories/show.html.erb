@@ -1,0 +1,42 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+
+			<%= link_to '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>'.html_safe, edit_category_path(@category), type: 'button', class: 'close' %>
+
+			<h4 class="modal-title lead" id="myModalLabel">
+				<%= link_to 'Home/', root_path %>
+				<%= link_to 'Categories', categories_path %>
+			</h4>
+		</div>
+
+		<div class="modal-body">
+			<div class="media">
+				<div class="text-center col-lg-3 col-md-3 ">
+					<%= image_tag(@category.image, size: "180", alt: "Avatar") %>
+				</div>
+
+
+				<div class="col-lg-9 col-md-9">
+
+					<div class="caption">
+						<h4><%= @category.name %></h4>
+						<p><%= @category.description %><p/>
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+
+
+
+		<div class="modal-footer">
+			<%= link_to 'delete', @category, method: :delete, type: 'button', class: 'btn btn-danger' %>
+
+		</div>
+	</div>
+
+
+</div>

@@ -12,8 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
+
 $(document).ready(function(){
   var EMAIL_PATT = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/i;
 
@@ -51,8 +51,7 @@ $(document).ready(function(){
           url: "api/v1/check",
           data:{ 
             email: value,
-  // authenticity_token: authenticity_token
-  }})
+          }})
         .done(function (msg){
 
           formControl.parentNode.classList.remove('has-error');
@@ -85,7 +84,7 @@ $(document).ready(function(){
           url: "api/v1/check",
           data:{ 
             email: value,
-  }})
+          }})
         .done(function (msg){
 
           formControl.parentNode.classList.add('has-error');
@@ -137,19 +136,67 @@ $(document).ready(function(){
       $(this).parent().parent().addClass('has-error');
       $(this).parent().siblings('.errorStatus').html('You have to agree to our terms to user our service').fadeIn("slow");
     }
+
+  });
+
+  $(".not-blank").focusout(function(){
+    var value = this.value;
+
+    if(isBlank(value)){
+      this.parentNode.classList.add('has-error');
+      $(this).siblings('.errorStatus').html('You cannot leave this blank').fadeIn("slow");
+    }else{
+      this.parentNode.classList.remove('has-error');
+      $(this).siblings('.errorStatus').fadeOut("slow");
+    }
+  });
+
+  $('#dropzone').on('dragover', function(e){
+    $(this).addClass('dragover');
+    $($(this).find('h3')[0]).html('Now drop');
+    return false;
+
+  });
+  $('#dropzone').on('dragleave', function(e){
+    $(this).removeClass('dragover');
+    $($(this).find('h3')[0]).html('If you do not like your avatar, drag and drop a new photo here.');
+    return false;
+  });
+
+  $('#dropzone').on('drop', function(e){
+    e.preventDefault();
+    dropzone = this;
+    console.log(e);
+    $(dropzone).removeClass('dragover');
+
+    $($(dropzone).find('h3')[0]).html('If you do not like your avatar, drag and drop a new photo here.');
+    files = e.originalEvent.dataTransfer.files;
+    file = files[files.length-1];
+    if(/^image/.test(file.type)){
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onloadend = function(){
+
+        $(dropzone).find('img').attr('src', this.result);
+      }
+      $('#image')[0].files = files;
+    }else{
+      alert('not an image');
+    }
+
+  });
+
+  $('#cart-icon').popover({
+    trigger: 'hover',
+    delay: {
+      "show": 100, 
+      "hide": 1000
+    },
+  });
+    
+
 });
-
-$(".not-blank").focusout(function(){
-  var value = this.value;
-
-  if(isBlank(value)){
-    this.parentNode.classList.add('has-error');
-    $(this).siblings('.errorStatus').html('You cannot leave this blank').fadeIn("slow");
-  }else{
-    this.parentNode.classList.remove('has-error');
-    $(this).siblings('.errorStatus').fadeOut("slow");
-  }
-});});
 
 function isBlank(str) {
   return (!str || /^\s*$/.test(str));

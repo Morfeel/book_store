@@ -1,0 +1,114 @@
+<div class="modal-header">
+
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#content-nav">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<h4 class="navbar-text" href="#">Groups</h4>
+
+			</div>
+
+			<div class="collapse navbar-collapse" id="content-nav">
+
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Show number <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</li>
+
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+</div>
+
+
+<div class="modal-body">
+	<table class="table">
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Can login</th>
+			<th>Can order</th>
+			<th>Can admin</th>
+			<th></th>	
+		</tr>
+		
+		<% @groups.each do |group| %>
+		<tr>
+			<td><%= group.id %></td>
+			<td><%= group.name %></td>
+			<td><% if group.can_login %>
+				<%= link_to '<span class="glyphicon glyphicon-ok icon-success" aria-hidden="true"></span>'.html_safe , {controller: 'groups', action: 'update_previllige', value: false, id: group, previllige: 'login' }, remote: true %>
+				<% else %>
+				<%= link_to '<span class="glyphicon glyphicon-remove icon-danger" aria-hidden="true"></span>'.html_safe , {controller: 'groups', action: 'update_previllige', value: true, id: group, previllige: 'login' }, remote: true %>
+				<% end %>
+			</td>
+			<td><% if group.can_order %>
+				<%= link_to '<span class="glyphicon glyphicon-ok icon-success" aria-hidden="true"></span>'.html_safe , {controller: 'groups', action: 'update_previllige', value: false, id: group, previllige: 'order' }, remote: true %>
+				<% else %>
+				<%= link_to '<span class="glyphicon glyphicon-remove icon-danger" aria-hidden="true"></span>'.html_safe , {controller: 'groups', action: 'update_previllige', value: true, id: group, previllige: 'order' }, remote: true %>
+				<% end %>
+			</td>
+			<td><% if group.can_admin %>
+				<%= link_to '<span class="glyphicon glyphicon-ok icon-success" aria-hidden="true"></span>'.html_safe , {controller: 'groups', action: 'update_previllige', value: false, id: group, previllige: 'admin' }, remote: true %>
+				<% else %>
+				<%= link_to '<span class="glyphicon glyphicon-remove icon-danger" aria-hidden="true"></span>'.html_safe , {controller: 'groups', action: 'update_previllige', value: true, id: group, previllige: 'admin' }, remote: true %>
+				<% end %>
+			</td>
+			<td>
+				<%= link_to ('<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>').html_safe, group, method: 'delete', remote:true %>
+			</td>
+		</tr>
+
+		<%end %>
+
+		<% if @group %>
+		<tr>
+			
+				<td></td>
+				
+				<td>
+					<%= form_for @group, remote: true do |f| %>
+					<%= f.text_field :name, placeholder: 'name', class: 'form-control' %>
+					<% end %>
+				</td>
+				<td></td>
+
+				<td></td>
+				<td></td>		
+			</tr>
+			<% end %>
+			
+		
+	</table>
+</div>
+
+
+
+<div class="modal-footer">
+
+	
+	<%= link_to 'Create', new_group_path, type: 'button', remote: true, class: 'btn btn-primary pull-left' %>
+	
+
+	<%= will_paginate @groups, previous_label: h('<'), next_label: h('>'), renderer: BootstrapPagination::Rails %>
+</div>
+
+
+<script>
+		$(function(){ $('.pagination a').attr('data-remote', 'true')});
+		</script>
+
