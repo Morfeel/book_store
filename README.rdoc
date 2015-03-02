@@ -1,33 +1,64 @@
-<<<<<<< HEAD
 =Book Store
-==built by Ruby on Rail
-=======
-=README
->>>>>>> origin/master
+<em>built by Ruby on Rail</em>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+===Introduction
+Book Store is a website, which built on various of technologies, Ruby on Rails, HTML5, CSS, JavaScript, AJAX, JSON, Restful Web Services(API), to sale books, as well as giving books and authors information. User can retrive data by viewing the pages on web browser or over web services.
 
-Things you may want to cover:
+===Site map
+The pages of this website can be divided into three parts based on what the previlliges the viewer has.
 
-* Ruby version
+=====Common pages
+These pages and data can be viewed by all the users:
+* Home page
+* Books gallery
+* Information page of a book
 
-* System dependencies
+=====Shopping cart and personal information page
+A logge-in user can view his/her own detail page, but if he/she wants to add a item into shopping cart, he/she needs can-order previllege.
 
-* Configuration
+=====Administration pages
+Only an adminstrator can views the details of all these records:
+* All users
+* Books
+* Authors
+* Publishers
+* Suppliers
+* Categories
+* Groups
 
-* Database creation
+=====Map
 
-* Database initialization
+===Page structure
+All pages in a certain structure:
+=====Navgation bar
+Nav bar contains links can direct to the pages that the user wants to go to and has the previllege to view, and contact information, terms and policies, a search form, a login form, a register form, and a user detail form.
+=====Content
+This is the place where most information chages, users can view the information they request displyed here.
+=====Footer
+Again, there are some link that can direct user to the pages they want and terms and policies, and last but not least, copyright information.
 
-* How to run the test suite
+===Access
+This website is built on Role-based access control. An administrator can creat a group, as well as delete it, and also can change the group that a user belongs to.
 
-* Services (job queues, cache servers, search engines, etc.)
+However, te previleges are built in hard coded. A user can have three previleges, which are:
+* can_login, if disabled, user cannot log into this system
+* can_order, if disabled, user can login but cannot order any items
+* can_admin, if a user has this previllege, then he/she can view all information and modify it.
 
-* Deployment instructions
+===Other technologies
+This website is not just built by Ruby and Rails, there are many other technologies as well.
 
-* ...
+=====AJAX
+In this project, there are many places used AJAX, such as when displaying books, change pages, login, logout...
+
+=====Will_paginate
+In order to let users have much faster experence of browsing data, it uses will_pageinate to seperate the records and display them based on how many records the user want to show and where they want to start.
+
+=====Tags
+When showing the many-to-many association between books and categories, and books and authors, it uses tags to modify the relationship and display them. It is a JQuery plug-in.
+
+===Reference
+This website is for demostration and study only, all the images and text are all from the internet, but they will not be used on business purpose.
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+
