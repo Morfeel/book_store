@@ -26,7 +26,8 @@ Only an adminstrator can views the details of all these records:
 * Categories
 * Groups
 
-=====Map
+=====Site map graph
+link:images/site_map.png
 
 ===Page structure
 All pages in a certain structure:
